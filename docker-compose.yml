@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:latest
+    container_name: clickhouse
+    restart: always
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse
+    environment:
+      CLICKHOUSE_USER: sergey
+      CLICKHOUSE_PASSWORD: 290315
+      CLICKHOUSE_DB: test_db
+
+volumes:
+  clickhouse_data:
