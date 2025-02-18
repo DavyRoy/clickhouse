@@ -166,8 +166,8 @@ LIMIT 10;
 
 1. `Сделать бэкап`
 2. `Создать бэкап через SQL`
-2. `Восстановить данные`
-2. `Репликация`
+3. `Восстановить данные`
+4. `Репликация`
 
 ``` ~Решение~
 1.
@@ -206,5 +206,91 @@ ORDER BY sale_date;
 
 `Скриншоты
 ![Скриншот ](ссылка на скриншот)`
+
+---
+
+### Задание 6 - Мини-проект
+
+1. `Сделать базы данных для аналитики`
+2. `Python-скрипт для загрузки данных`
+3. `Визуализация данных в Grafana`
+
+``` ~Решение~
+1.
+CREATE TABLE users (
+    user_id UInt32,
+    name String,
+    email String,
+    created_at DateTime
+) ENGINE = MergeTree()
+ORDER BY user_id;
+
+CREATE TABLE products (
+    product_id UInt32,
+    name String,
+    category String,
+    price Float64,
+    created_at DateTime
+) ENGINE = MergeTree()
+ORDER BY product_id;
+
+CREATE TABLE orders (
+    order_id UInt32,
+    user_id UInt32,
+    product_id UInt32,
+    quantity UInt8,
+    total_price Float64,
+    order_date DateTime
+) ENGINE = MergeTree()
+ORDER BY order_id;
+2.
+from clickhouse_driver import Client
+from datetime import datetime
+
+# Подключение к ClickHouse
+client = Client('localhost', user='sergey', password='290315')
+
+# Генерация тестовых данных с преобразованием строк в datetime
+users_data = [
+    (1, 'Иван', 'ivan@example.com', datetime(2024, 1, 1, 10, 0, 0)),
+    (2, 'Мария', 'maria@example.com', datetime(2024, 2, 1, 12, 0, 0))
+]
+
+products_data = [
+    (1, 'Ноутбук', 'Электроника', 75000, datetime(2024, 1, 5, 15, 30, 0)),
+    (2, 'Клавиатура', 'Компьютерные аксессуары', 3000, datetime(2024, 2, 10, 10, 15, 0))
+]
+
+orders_data = [
+    (1, 1, 1, 1, 75000, datetime(2024, 3, 1, 14, 0, 0)),
+    (2, 2, 2, 2, 6000, datetime(2024, 3, 2, 16, 30, 0))
+]
+
+# Функция загрузки данных в ClickHouse
+def insert_data(table, data):
+    query = f"INSERT INTO {table} VALUES"
+    client.execute(query, data)
+
+# Загрузка данных
+insert_data('users', users_data)
+insert_data('products', products_data)
+insert_data('orders', orders_data)
+
+print("✅ Данные успешно загружены!")
+
+3.
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
+SELECT products.name, SUM(orders.quantity) as total_sales
+FROM orders
+JOIN products ON orders.product_id = products.product_id
+GROUP BY products.name
+ORDER BY total_sales DESC
+LIMIT 5;
+
+....
+```
+
+`Скриншоты
+![grafana](ссылка на скриншот)`
 
 ---
