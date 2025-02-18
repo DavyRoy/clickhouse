@@ -42,7 +42,7 @@ SHOW DATABASES;
 ```
 
 `Cкриншоты
-![DBeaver](ссылка на скриншот 1)`
+![DBeaver](https://github.com/DavyRoy/clickhouse/blob/main/images/DBeaver.png)
 
 ---
 
@@ -107,7 +107,7 @@ Query id: 2c567405-ff36-4958-813e-b92c074aca80
 ```
 
 `Cкриншоты
-![DB tables](https://github.com/DavyRoy/docker/blob/main/my-node/images/docker-node.png)`
+![DB tables](https://github.com/DavyRoy/clickhouse/blob/main/images/DB%20tables.png)
 
 ---
 
@@ -291,6 +291,6 @@ LIMIT 5;
 ```
 
 `Скриншоты
-![grafana](ссылка на скриншот)`
+![grafana](https://github.com/DavyRoy/clickhouse/blob/main/images/grafana.png)
 
 ---
