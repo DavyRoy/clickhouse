@@ -11,8 +11,8 @@ services:
     volumes:
       - clickhouse_data:/var/lib/clickhouse
     environment:
-      CLICKHOUSE_USER: sergey
-      CLICKHOUSE_PASSWORD: 290315
+      CLICKHOUSE_USER: name
+      CLICKHOUSE_PASSWORD: pass
       CLICKHOUSE_DB: test_db
 
 volumes:
