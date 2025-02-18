@@ -2,7 +2,7 @@ from clickhouse_driver import Client
 from datetime import datetime
 
 # Подключение к ClickHouse
-client = Client('localhost', user='sergey', password='290315')
+client = Client('localhost', user='name', password='pass')
 
 # Генерация тестовых данных с преобразованием строк в datetime
 users_data = [
